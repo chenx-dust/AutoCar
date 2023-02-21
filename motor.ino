@@ -3,7 +3,7 @@
 
 double Motor_updateSpeed(Motor *motor)
 {
-    motor->speed = Encounter_count(motor->encounter) / MOTOR_MAX_CNT;
+    motor->speed = (Encounter_count(motor->encounter) / 780.0) * 3.1415 * 2.0 * (1000 / TIMER_PERIOD);
     return motor->speed;
 }
 
@@ -19,6 +19,7 @@ void Motor_output(Motor *motor, double output)
         out = 255;
     else if (out < 0)
         out = 0;
+    motor->output = out;
     analogWrite(motor->pin, out);
 }
 

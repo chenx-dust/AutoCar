@@ -9,6 +9,7 @@ typedef struct
     double dt;
     double target;
     double error[3];
+    double output;
 } PID_controller;
 
 double PID_update(PID_controller *pid, double input);
