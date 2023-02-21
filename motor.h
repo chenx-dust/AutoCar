@@ -12,9 +12,10 @@ typedef struct
     PID_controller *pid;
     uint8_t pin;
     double speed;
+    int16_t output;
 } Motor;
 
-double Motor_getSpeed(Motor *motor);
+double Motor_updateSpeed(Motor *motor);
 void Motor_setSpeed(Motor *motor, double speed);
 void Motor_output(Motor *motor, double output);
 void Motor_update(Motor *motor);
