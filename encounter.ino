@@ -21,7 +21,7 @@ void Encounter_interrupt(Encounter *encounter)
             encounter->cnt--;
 }
 
-int32_t Encounter_cnt(Encounter *encounter)
+int32_t Encounter_count(Encounter *encounter)
 {
     int32_t cnt = encounter->cnt;
     encounter->cnt = 0;

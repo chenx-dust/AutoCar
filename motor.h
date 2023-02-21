@@ -8,29 +8,15 @@
 
 typedef struct
 {
-    Encounter encounter;
-    PID_controller pid;
+    Encounter *encounter;
+    PID_controller *pid;
+    uint8_t pin;
+    double speed;
 } Motor;
 
-typedef struct
-{
-    Motor left;
-    Motor right;
-    uint32_t dt;
-    void (*intFunc)(void);
-} CarMotor;
-
-void Motor_setup(Motor* motor)
-{
-    Encounter_setup(&motor->encounter);
-}
-
-void CarMotor_setup(CarMotor* carMotor)
-{
-    Motor_setup(&carMotor->left);
-    Motor_setup(&carMotor->right);
-    MsTimer2::set(carMotor->dt, carMotor->intFunc);
-    MsTimer2::start();
-}
+double Motor_getSpeed(Motor *motor);
+void Motor_setSpeed(Motor *motor, double speed);
+void Motor_output(Motor *motor, double output);
+void Motor_update(Motor *motor);
 
 #endif
