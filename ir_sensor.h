@@ -9,6 +9,6 @@ typedef struct
 } IR_sensor;
 
 void IR_setup(IR_sensor *ir);
-int8_t IR_read(IR_sensor *ir);
+int8_t IR_read(IR_sensor *ir, int *ret_num);
 
 #endif

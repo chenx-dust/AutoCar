@@ -11,8 +11,11 @@ typedef struct
     Motor *motor_r;
     PID_controller *pid;
     IR_sensor *ir;
+    void (*on_stop)();
 } Patrol;
 
 void Patrol_update(Patrol *patrol);
+void Patrol_stop(Patrol *Patrol);
+void Patrol_start(Patrol *Patrol);
 
 #endif
