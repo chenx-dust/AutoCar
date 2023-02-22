@@ -10,13 +10,17 @@ typedef struct
 {
     Encounter *encounter;
     PID_controller *pid;
-    uint8_t pin;
+    uint8_t pin_en;
+    uint8_t pin_ina;
+    uint8_t pin_inb;
     double speed;
     int16_t output;
 } Motor;
 
+void Motor_setup(Motor *motor);
 double Motor_updateSpeed(Motor *motor);
 void Motor_setSpeed(Motor *motor, double speed);
+void Motor_setTurn(Motor *motor, bool is_reversed);
 void Motor_output(Motor *motor, double output);
 void Motor_update(Motor *motor);
 
