@@ -44,10 +44,6 @@ void Patrol_update(Patrol *patrol)
         *patrol->stop_flag = true;
         return;
     }
-    // bool is_negative = error < 0;
-    // int8_t error_abs = ABS(error);
-    double output = PID_update(patrol->pid, error);
-    double speed_l, speed_r;
     if (stop_turn > 0)
     {
         // Serial.println("Pass.");
@@ -55,6 +51,10 @@ void Patrol_update(Patrol *patrol)
         last_num = num;
         return;
     }
+    // bool is_negative = error < 0;
+    // int8_t error_abs = ABS(error);
+    double output = PID_update(patrol->pid, error);
+    double speed_l, speed_r;
     /// 控制方案A
     // Output to Motor
     // if (num >= PATROL_CORNER_THRESHOLD)
@@ -123,10 +123,12 @@ void Patrol_update(Patrol *patrol)
 void Patrol_stop(Patrol *patrol)
 {
     // Turn around
-    delay(500);
-    Motor_setSpeed(patrol->motor_l, PATROL_BASIC_SPEED);
-    Motor_setSpeed(patrol->motor_r, -PATROL_BASIC_SPEED);
-    delay(1000);
+    // Motor_setSpeed(patrol->motor_l, 1.0 * PATROL_BASIC_SPEED);
+    // Motor_setSpeed(patrol->motor_r, 1.0 * PATROL_BASIC_SPEED);
+    // delay(500);
+    Motor_setSpeed(patrol->motor_l, 0.2 * PATROL_BASIC_SPEED);
+    Motor_setSpeed(patrol->motor_r, -0.5 * PATROL_BASIC_SPEED);
+    delay(1500);
     Motor_setSpeed(patrol->motor_l, 0);
     Motor_setSpeed(patrol->motor_r, 0);
 }

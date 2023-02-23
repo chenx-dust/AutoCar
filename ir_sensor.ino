@@ -25,5 +25,8 @@ int8_t IR_read(IR_sensor *ir, int *ret_num)
     // Serial.print("\r\n");
     *ret_num = num;
     // return double(total)/ num + 0.5;
+    if (num == 0)
+        return ir->last_error;
+    ir->last_error = now;
     return now;
 }

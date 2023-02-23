@@ -6,6 +6,7 @@
 typedef struct
 {
     uint8_t pin[IR_SENSOR_TOTAL];
+    int last_error;
 } IR_sensor;
 
 void IR_setup(IR_sensor *ir);
