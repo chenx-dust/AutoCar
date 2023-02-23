@@ -1,7 +1,7 @@
 #ifndef _CONST_H_
 #define _CONST_H_
 
-#define TIMER_PERIOD 50
+#define TIMER_PERIOD 25
 
 #define ENC_LA_PIN 2
 #define ENC_LB_PIN 4
@@ -25,7 +25,13 @@
 #define PATROL_BASIC_SPEED 5.0
 #define PATROL_TURN_SPEED 1.2
 #define PATROL_TURN_CONST 0.1
-#define PATROL_STOP_THERS 9
+#define PATROL_STOP_THRESHOLD 8
+#define PATROL_CORNER_THRESHOLD 5
+#define PATROL_CORNER_POS 1.2
+#define PATROL_CORNER_NEG 0.0
+#define PATROL_CORNER_TIME 700
+#define PATROL_LEFT false
+#define PATROL_RIGHT true
 
 #define IR_SENSOR_TOTAL 9
 #define IR_SENSOR_MEDIAN 4
