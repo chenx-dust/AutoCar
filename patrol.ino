@@ -16,6 +16,14 @@ bool double_check(int num, int thres)
         return false;
 }
 
+double deal_speed(double in_speed)
+{
+    if (in_speed > 0)
+        return in_speed * 0.2;
+    else
+        return in_speed * 1.5;
+}
+
 // double deal_speed(double in_speed, bool side)
 // {
 //     if (side == PATROL_LEFT)
@@ -78,8 +86,8 @@ void Patrol_update(Patrol *patrol)
         return;
     }
     last_num = num;
-    speed_l = PATROL_BASIC_SPEED + PATROL_TURN_SPEED * output;
-    speed_r = PATROL_BASIC_SPEED - PATROL_TURN_SPEED * output;
+    speed_l = PATROL_BASIC_SPEED + PATROL_TURN_SPEED * deal_speed(output);
+    speed_r = PATROL_BASIC_SPEED + PATROL_TURN_SPEED * deal_speed(-output);
     Motor_setSpeed(patrol->motor_l, speed_l);
     Motor_setSpeed(patrol->motor_r, speed_r);
     // Serial.print(error);
@@ -128,7 +136,7 @@ void Patrol_stop(Patrol *patrol)
     // delay(500);
     Motor_setSpeed(patrol->motor_l, 0.2 * PATROL_BASIC_SPEED);
     Motor_setSpeed(patrol->motor_r, -0.5 * PATROL_BASIC_SPEED);
-    delay(1500);
+    delay(500);
     Motor_setSpeed(patrol->motor_l, 0);
     Motor_setSpeed(patrol->motor_r, 0);
 }
