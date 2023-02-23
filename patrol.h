@@ -11,7 +11,7 @@ typedef struct
     Motor *motor_r;
     PID_controller *pid;
     IR_sensor *ir;
-    void (*on_stop)();
+    volatile bool *stop_flag;
 } Patrol;
 
 void Patrol_update(Patrol *patrol);
