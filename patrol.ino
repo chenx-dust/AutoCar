@@ -19,7 +19,7 @@ bool double_check(int num, int thres)
 double deal_speed(double in_speed)
 {
     if (in_speed > 0)
-        return in_speed * 0.2;
+        return in_speed * 0.3;
     else
         return in_speed * 1.5;
 }

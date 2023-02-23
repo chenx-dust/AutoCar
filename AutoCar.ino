@@ -64,9 +64,10 @@ void setup()
     Arm_setup(&servoA, &servoB, &servoC);
     MsTimer2::set(TIMER_PERIOD, onTimer);
     MsTimer2::start();
-    // Motor_setSpeed(&motor_l, 25);
-    // Motor_setSpeed(&motor_l, 0);
-    Arm_pickup(&servoA, &servoB, &servoC);
+    Motor_setSpeed(&motor_l, 10);
+    Motor_setSpeed(&motor_l, 10);
+    delay(50);
+    // Arm_pickup(&servoA, &servoB, &servoC);
     Patrol_start(&patrol);
     // delay(1000);
     // Arm_drop(&servoA, &servoB, &servoC);

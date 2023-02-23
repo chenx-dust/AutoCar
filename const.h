@@ -1,7 +1,7 @@
 #ifndef _CONST_H_
 #define _CONST_H_
 
-#define TIMER_PERIOD 25
+#define TIMER_PERIOD 10
 
 #define ENC_LA_PIN 2
 #define ENC_LB_PIN 4
@@ -15,18 +15,18 @@
 #define MOTOR_R_INA 46
 #define MOTOR_R_INB 47
 
-#define MOTOR_PID_KP 15.0
-#define MOTOR_PID_KI 20.0
-#define MOTOR_PID_KD 0.05
+#define MOTOR_PID_KP 22.0
+#define MOTOR_PID_KI 18.0
+#define MOTOR_PID_KD 0.1
 
 #define PATROL_PID_KP 2.0
 #define PATROL_PID_KI 0.0
-#define PATROL_PID_KD 0.05
-#define PATROL_BASIC_SPEED 20.0
-#define PATROL_TURN_SPEED 2.5
+#define PATROL_PID_KD 0.4
+#define PATROL_BASIC_SPEED 35.0
+#define PATROL_TURN_SPEED 2.3
 // #define PATROL_TURN_CONST 0.1
 #define PATROL_STOP_THRESHOLD 8
-#define PATROL_CORNER_THRESHOLD 5
+#define PATROL_CORNER_THRESHOLD 10
 #define PATROL_CORNER_POS 0.6
 #define PATROL_CORNER_NEG -0.6
 #define PATROL_CORNER_TIME 80
