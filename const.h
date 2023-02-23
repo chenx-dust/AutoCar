@@ -1,7 +1,7 @@
 #ifndef _CONST_H_
 #define _CONST_H_
 
-#define TIMER_PERIOD 25
+#define TIMER_PERIOD 10
 
 #define ENC_LA_PIN 2
 #define ENC_LB_PIN 4
@@ -27,9 +27,9 @@
 // #define PATROL_TURN_CONST 0.1
 #define PATROL_STOP_THRESHOLD 8
 #define PATROL_CORNER_THRESHOLD 5
-#define PATROL_CORNER_POS 0.5
+#define PATROL_CORNER_POS 1.0
 #define PATROL_CORNER_NEG -0.5
-#define PATROL_CORNER_TIME 60
+#define PATROL_CORNER_TIME 500
 #define PATROL_LEFT false
 #define PATROL_RIGHT true
 

@@ -126,9 +126,9 @@ void Patrol_stop(Patrol *patrol)
     // Motor_setSpeed(patrol->motor_l, 1.0 * PATROL_BASIC_SPEED);
     // Motor_setSpeed(patrol->motor_r, 1.0 * PATROL_BASIC_SPEED);
     // delay(500);
-    Motor_setSpeed(patrol->motor_l, 0.2 * PATROL_BASIC_SPEED);
-    Motor_setSpeed(patrol->motor_r, -0.5 * PATROL_BASIC_SPEED);
-    delay(1500);
+    Motor_setSpeed(patrol->motor_l, 0.5 * PATROL_BASIC_SPEED);
+    Motor_setSpeed(patrol->motor_r, -0.7 * PATROL_BASIC_SPEED);
+    delay(1800);
     Motor_setSpeed(patrol->motor_l, 0);
     Motor_setSpeed(patrol->motor_r, 0);
 }
