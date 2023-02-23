@@ -35,19 +35,10 @@ void onTimer()
     Motor_update(&motor_l);
     Motor_update(&motor_r);
     Patrol_update(&patrol);
-    // Serial.print("Left motor: ");
-    // Serial.print(motor_l.speed);
-    // Serial.print(" ");
-    // Serial.println(motor_l.output);
-    // Serial.print("Right motor: ");
-    // Serial.print(motor_r.speed);
-    // Serial.print(" ");
-    // Serial.println(motor_r.output);
 }
 
 void onStop()
 {
-    Serial.println("STOP.");
     Patrol_stop(&patrol);
     Arm_drop(&servoA, &servoB, &servoC);
     is_stop = false;
@@ -64,12 +55,8 @@ void setup()
     Arm_setup(&servoA, &servoB, &servoC);
     MsTimer2::set(TIMER_PERIOD, onTimer);
     MsTimer2::start();
-    // Motor_setSpeed(&motor_l, 25);
-    // Motor_setSpeed(&motor_l, 0);
     Arm_pickup(&servoA, &servoB, &servoC);
     Patrol_start(&patrol);
-    // delay(1000);
-    // Arm_drop(&servoA, &servoB, &servoC);
 }
 
 int cnt=0;
@@ -78,22 +65,4 @@ void loop()
 {
     if (is_stop)
         onStop();
-    // if (Serial.available())
-    // {
-    // }
-    // if(cnt==1000)
-    //     Motor_setSpeed(&motor_l, 5);
-    // else if(cnt==2000)
-    //     Motor_setSpeed(&motor_l, 15);
-    // else if (cnt==3000)
-    // {
-    //     Motor_setSpeed(&motor_l, 25);
-    //     cnt=0;
-    // }
-    // ++cnt;
-    // Serial.println(digitalRead(16));
-    // delay(1000);
-    // Arm_pickup(&servoA, &servoB, &servoC);
-    // delay(1000);
-    // Arm_drop(&servoA, &servoB, &servoC);
 }
