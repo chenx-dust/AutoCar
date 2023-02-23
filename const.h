@@ -1,7 +1,7 @@
 #ifndef _CONST_H_
 #define _CONST_H_
 
-#define TIMER_PERIOD 10
+#define TIMER_PERIOD 20
 
 #define ENC_LA_PIN 2
 #define ENC_LB_PIN 4

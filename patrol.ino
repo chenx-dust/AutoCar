@@ -16,13 +16,13 @@ bool double_check(int num, int thres)
         return false;
 }
 
-// double deal_speed(double in_speed, bool side)
-// {
-//     if (side == PATROL_LEFT)
-//         return PATROL_BASIC_SPEED + PATROL_TURN_SPEED * in_speed;
-//     else
-//         return PATROL_BASIC_SPEED + PATROL_TURN_SPEED * in_speed;
-// }
+double k_speed(double in_speed)
+{
+    if (in_speed >= 0)
+        return 0.6 * in_speed;
+    else
+        return 1.0 * in_speed;
+}
 
 // double deal_speed_corner(double in_speed, bool side)
 // {
@@ -44,80 +44,15 @@ void Patrol_update(Patrol *patrol)
         *patrol->stop_flag = true;
         return;
     }
-    if (stop_turn > 0)
-    {
-        // Serial.println("Pass.");
-        stop_turn--;
-        last_num = num;
-        return;
-    }
     // bool is_negative = error < 0;
     // int8_t error_abs = ABS(error);
     double output = PID_update(patrol->pid, error);
     double speed_l, speed_r;
-    /// 控制方案A
-    // Output to Motor
-    // if (num >= PATROL_CORNER_THRESHOLD)
-    //     is_corner = true, corner_side = error < 0 ? PATROL_LEFT : PATROL_RIGHT;
-    // if (error == 0)
-    //     is_corner = false;
-    if (double_check(num, PATROL_CORNER_THRESHOLD))
-    {
-        // Serial.println("Corner Mode.");
-        if (error > 0)
-        {
-            Motor_setSpeed(patrol->motor_l, PATROL_CORNER_NEG * PATROL_BASIC_SPEED);
-            Motor_setSpeed(patrol->motor_r, PATROL_CORNER_POS * PATROL_BASIC_SPEED);
-        }
-        else
-        {
-            Motor_setSpeed(patrol->motor_l, PATROL_CORNER_POS * PATROL_BASIC_SPEED);
-            Motor_setSpeed(patrol->motor_r, PATROL_CORNER_NEG * PATROL_BASIC_SPEED);
-        }
-        stop_turn = PATROL_CORNER_TIME / TIMER_PERIOD;
-        return;
-    }
     last_num = num;
-    speed_l = PATROL_BASIC_SPEED + PATROL_TURN_SPEED * output;
-    speed_r = PATROL_BASIC_SPEED - PATROL_TURN_SPEED * output;
+    speed_l = PATROL_BASIC_SPEED + PATROL_TURN_SPEED * k_speed(output);
+    speed_r = PATROL_BASIC_SPEED + PATROL_TURN_SPEED * k_speed(-output);
     Motor_setSpeed(patrol->motor_l, speed_l);
     Motor_setSpeed(patrol->motor_r, speed_r);
-    // Serial.print(error);
-    // Serial.print(" ");
-    // Serial.print(speed_l);
-    // Serial.print(" ");
-    // Serial.println(speed_r);
-    /// 控制方案B
-    // double speed_a = PATROL_BASIC_SPEED, speed_b = PATROL_BASIC_SPEED;
-    // switch (error_abs)
-    // {
-    // case 1:
-    //     speed_a *= 0.75;
-    //     speed_b *= 1.25;
-    //     break;
-    // case 2:
-    //     speed_a *= 0.5;
-    //     speed_b *= 1.25;
-    //     break;
-    // case 3:
-    //     speed_a *= -0.1;
-    //     speed_b *= 1.0;
-    //     break;
-    // case 4:
-    //     speed_a *= -0.25;
-    //     speed_b *= 0.75;
-    //     break;
-    // }
-    // if (is_negative)
-    // {
-    //     Motor_setSpeed(patrol->motor_l, speed_b);
-    //     Motor_setSpeed(patrol->motor_r, speed_a);
-    // }
-    // else
-    // {
-    //     Motor_setSpeed(patrol->motor_l, speed_a);
-    //     Motor_setSpeed(patrol->motor_r, speed_b);
-    // }
 }
 
 void Patrol_stop(Patrol *patrol)
