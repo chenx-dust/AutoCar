@@ -45,6 +45,7 @@ void onTimer()
 
 void onStop()
 {
+    Serial.println("STOP.");
     Patrol_stop(&patrol);
     Arm_drop(&servoA, &servoB, &servoC);
 }
