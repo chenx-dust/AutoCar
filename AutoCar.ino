@@ -7,6 +7,8 @@
 #include "patrol.h"
 #include "arm.h"
 
+volatile bool is_stop = false;
+
 void Eint_l();
 void Eint_r();
 
@@ -24,7 +26,7 @@ Motor motor_r = {&enc_r, &motor_pid_r, MOTOR_R_PIN, MOTOR_R_INA, MOTOR_R_INB};
 
 PID_controller patrol_pid = {PATROL_PID_KP, PATROL_PID_KI, PATROL_PID_KD, TIMER_PERIOD / 1000.0};
 IR_sensor ir_sensor = {{IR_SENSOR_PIN_0, IR_SENSOR_PIN_1, IR_SENSOR_PIN_2, IR_SENSOR_PIN_3, IR_SENSOR_PIN_4, IR_SENSOR_PIN_5, IR_SENSOR_PIN_6, IR_SENSOR_PIN_7, IR_SENSOR_PIN_8}};
-Patrol patrol = {&motor_l, &motor_r, &patrol_pid, &ir_sensor, onStop};
+Patrol patrol = {&motor_l, &motor_r, &patrol_pid, &ir_sensor, &is_stop};
 
 Servo servoA, servoB, servoC;
 
@@ -33,14 +35,14 @@ void onTimer()
     Motor_update(&motor_l);
     Motor_update(&motor_r);
     Patrol_update(&patrol);
-    Serial.print("Left motor: ");
-    Serial.print(motor_l.speed);
-    Serial.print(" ");
-    Serial.println(motor_l.output);
-    Serial.print("Right motor: ");
-    Serial.print(motor_r.speed);
-    Serial.print(" ");
-    Serial.println(motor_r.output);
+    // Serial.print("Left motor: ");
+    // Serial.print(motor_l.speed);
+    // Serial.print(" ");
+    // Serial.println(motor_l.output);
+    // Serial.print("Right motor: ");
+    // Serial.print(motor_r.speed);
+    // Serial.print(" ");
+    // Serial.println(motor_r.output);
 }
 
 void onStop()
@@ -48,6 +50,7 @@ void onStop()
     Serial.println("STOP.");
     Patrol_stop(&patrol);
     Arm_drop(&servoA, &servoB, &servoC);
+    is_stop = false;
 }
 
 void setup()
@@ -73,6 +76,8 @@ int cnt=0;
 
 void loop()
 {
+    if (is_stop)
+        onStop();
     // if (Serial.available())
     // {
     // }

@@ -4,7 +4,7 @@
 #define ABS(X) (((X) >= 0) ? (X) : -(X))
 
 // bool is_run = false, is_corner = false, corner_side;
-bool is_run = false;
+volatile bool is_run = false;
 uint16_t stop_turn = 0;
 int last_num = 0;
 
@@ -40,7 +40,8 @@ void Patrol_update(Patrol *patrol)
     int8_t error = IR_read(patrol->ir, &num);
     if (double_check(num, PATROL_STOP_THRESHOLD))
     {
-        patrol->on_stop();
+        is_run = false;
+        *patrol->stop_flag = true;
         return;
     }
     // bool is_negative = error < 0;
@@ -49,7 +50,7 @@ void Patrol_update(Patrol *patrol)
     double speed_l, speed_r;
     if (stop_turn > 0)
     {
-        Serial.println("Pass.");
+        // Serial.println("Pass.");
         stop_turn--;
         last_num = num;
         return;
@@ -62,7 +63,7 @@ void Patrol_update(Patrol *patrol)
     //     is_corner = false;
     if (double_check(num, PATROL_CORNER_THRESHOLD))
     {
-        Serial.println("Corner Mode.");
+        // Serial.println("Corner Mode.");
         if (error > 0)
         {
             Motor_setSpeed(patrol->motor_l, PATROL_CORNER_NEG * PATROL_BASIC_SPEED);
@@ -81,11 +82,11 @@ void Patrol_update(Patrol *patrol)
     speed_r = PATROL_BASIC_SPEED - PATROL_TURN_SPEED * output;
     Motor_setSpeed(patrol->motor_l, speed_l);
     Motor_setSpeed(patrol->motor_r, speed_r);
-    Serial.print(error);
-    Serial.print(" ");
-    Serial.print(speed_l);
-    Serial.print(" ");
-    Serial.println(speed_r);
+    // Serial.print(error);
+    // Serial.print(" ");
+    // Serial.print(speed_l);
+    // Serial.print(" ");
+    // Serial.println(speed_r);
     /// 控制方案B
     // double speed_a = PATROL_BASIC_SPEED, speed_b = PATROL_BASIC_SPEED;
     // switch (error_abs)
@@ -121,7 +122,11 @@ void Patrol_update(Patrol *patrol)
 
 void Patrol_stop(Patrol *patrol)
 {
-    is_run = false;
+    // Turn around
+    delay(500);
+    Motor_setSpeed(patrol->motor_l, PATROL_BASIC_SPEED);
+    Motor_setSpeed(patrol->motor_r, -PATROL_BASIC_SPEED);
+    delay(1000);
     Motor_setSpeed(patrol->motor_l, 0);
     Motor_setSpeed(patrol->motor_r, 0);
 }
