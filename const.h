@@ -1,7 +1,7 @@
 #ifndef _CONST_H_
 #define _CONST_H_
 
-#define TIMER_PERIOD 20
+#define TIMER_PERIOD 10
 
 #define ENC_LA_PIN 2
 #define ENC_LB_PIN 4
@@ -21,10 +21,12 @@
 
 #define PATROL_PID_KP 1.5
 #define PATROL_PID_KI 0.1
-#define PATROL_PID_KD 0.0
-#define PATROL_BASIC_SPEED 10.0
-#define PATROL_TURN_SPEED 1.75
+#define PATROL_PID_KD 0.01
+#define PATROL_BASIC_SPEED 7.5
+#define PATROL_TURN_SPEED 1.5
 #define PATROL_STOP_THRESHOLD 8
+#define PATROL_LAST 3
+#define PATROL_TURN_TIME 2200
 
 #define IR_SENSOR_TOTAL 9
 #define IR_SENSOR_MEDIAN 4
@@ -44,7 +46,7 @@
 #define SERVO_A_BASE 95
 #define SERVO_B_BASE 85
 #define SERVO_C_BASE 50
-#define SERVO_A_UP 30
-#define SERVO_C_PICK 45
+#define SERVO_A_UP 20
+#define SERVO_C_PICK 40
 
 #endif
