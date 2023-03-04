@@ -1,5 +1,6 @@
 #include "ir_sensor.h"
 #include "const.h"
+#define ABS(X) ((X) >= 0 ? (X) : (-(X)))
 
 void IR_setup(IR_sensor *ir)
 {
@@ -26,6 +27,15 @@ int8_t IR_read(IR_sensor *ir, int *ret_num)
     *ret_num = num;
     // return double(total)/ num + 0.5;
     if (num == 0)
+    {
+        if (ir->last_error > 0)
+            return ir->last_error + 1;
+        else if (ir->last_error < 0)
+            return ir->last_error - 1;
+        else
+            return 0;
+    }
+    if (ABS(ir->last_error - now) > 5)
         return ir->last_error;
     ir->last_error = now;
     return now;
