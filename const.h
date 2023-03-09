@@ -5,17 +5,17 @@
 
 #define TIMER_PERIOD 10
 
-#define ENC_LA_PIN 2
-#define ENC_LB_PIN 4
-#define ENC_RA_PIN 3
-#define ENC_RB_PIN 5
+#define ENC_LA_PIN 18
+#define ENC_LB_PIN 19
+#define ENC_RA_PIN 20
+#define ENC_RB_PIN 21
 
-#define MOTOR_L_PIN 6
-#define MOTOR_R_PIN 7
-#define MOTOR_L_INA 44
-#define MOTOR_L_INB 45
-#define MOTOR_R_INA 46
-#define MOTOR_R_INB 47
+#define MOTOR_L_PIN 3
+#define MOTOR_R_PIN 2
+#define MOTOR_L_INA 34
+#define MOTOR_L_INB 32
+#define MOTOR_R_INA 35
+#define MOTOR_R_INB 37
 
 #define MOTOR_PID_KP 15.0
 #define MOTOR_PID_KI 20.0
@@ -34,19 +34,19 @@
 
 #define IR_SENSOR_TOTAL 9
 #define IR_SENSOR_MEDIAN 4
-#define IR_SENSOR_PIN_0 22
-#define IR_SENSOR_PIN_1 23
-#define IR_SENSOR_PIN_2 24
-#define IR_SENSOR_PIN_3 25
-#define IR_SENSOR_PIN_4 26
-#define IR_SENSOR_PIN_5 27
-#define IR_SENSOR_PIN_6 28
-#define IR_SENSOR_PIN_7 29
-#define IR_SENSOR_PIN_8 30 
+#define IR_SENSOR_PIN_8 10
+#define IR_SENSOR_PIN_7 9
+#define IR_SENSOR_PIN_6 8
+#define IR_SENSOR_PIN_5 7
+#define IR_SENSOR_PIN_4 6
+#define IR_SENSOR_PIN_3 5
+#define IR_SENSOR_PIN_2 4
+#define IR_SENSOR_PIN_1 PIN_A4
+#define IR_SENSOR_PIN_0 PIN_A5
 
-#define SERVO_A_PIN 8
-#define SERVO_B_PIN 9
-#define SERVO_C_PIN 10
+#define SERVO_A_PIN 11
+#define SERVO_B_PIN 12
+#define SERVO_C_PIN 13
 #define SERVO_A_BASE 95
 #define SERVO_B_BASE 85
 #define SERVO_C_BASE 50
