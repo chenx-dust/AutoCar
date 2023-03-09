@@ -3,12 +3,12 @@
 
 #include <MsTimer2.h>
 
-#include "encounter.h"
+#include "encoder.h"
 #include "pid_controller.h"
 
 typedef struct
 {
-    Encounter *encounter;
+    Encoder *encoder;
     PID_controller *pid;
     uint8_t pin_en;
     uint8_t pin_ina;

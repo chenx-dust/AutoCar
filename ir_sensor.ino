@@ -1,6 +1,5 @@
 #include "ir_sensor.h"
 #include "const.h"
-#define ABS(X) ((X) >= 0 ? (X) : (-(X)))
 
 void IR_setup(IR_sensor *ir)
 {
@@ -11,13 +10,22 @@ void IR_setup(IR_sensor *ir)
 int8_t IR_read(IR_sensor *ir, int *ret_num)
 {
     int now = 0, num = 0;
-    for (int8_t i = IR_SENSOR_MEDIAN, j = IR_SENSOR_MEDIAN; i >= 0 && j < IR_SENSOR_TOTAL ; i--, j++)
-    {
-        if (digitalRead(ir->pin[i]) == HIGH)
-            now = i - IR_SENSOR_MEDIAN, num++;
-        if (digitalRead(ir->pin[j]) == HIGH)
-            now = j - IR_SENSOR_MEDIAN, num++;
-    }
+    if (!ir->right_first)
+        for (int8_t i = IR_SENSOR_MEDIAN, j = IR_SENSOR_MEDIAN; i >= 0 && j < IR_SENSOR_TOTAL ; i--, j++)
+        {
+            if (digitalRead(ir->pin[j]) == HIGH)
+                now = j - IR_SENSOR_MEDIAN, num++;
+            if (digitalRead(ir->pin[i]) == HIGH)
+                now = i - IR_SENSOR_MEDIAN, num++;
+        }
+    else
+        for (int8_t i = IR_SENSOR_MEDIAN, j = IR_SENSOR_MEDIAN; i >= 0 && j < IR_SENSOR_TOTAL; i--, j++)
+        {
+            if (digitalRead(ir->pin[i]) == HIGH)
+                now = i - IR_SENSOR_MEDIAN, num++;
+            if (digitalRead(ir->pin[j]) == HIGH)
+                now = j - IR_SENSOR_MEDIAN, num++;
+        }
     // for (int8_t i = 0; i < IR_SENSOR_TOTAL ; i++)
     // {
     //     Serial.print(digitalRead(ir->pin[i]));
@@ -35,8 +43,12 @@ int8_t IR_read(IR_sensor *ir, int *ret_num)
         else
             return 0;
     }
-    if (ABS(ir->last_error - now) > 5)
+    if (ABS(ir->last_error - now) >= 6)
+    {
+        double tmp_error = ir->last_error;
+        ir->last_error = (tmp_error + now) / 2;
         return ir->last_error;
+    }
     ir->last_error = now;
     return now;
 }

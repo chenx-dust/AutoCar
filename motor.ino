@@ -11,7 +11,7 @@ void Motor_setup(Motor *motor)
 
 double Motor_updateSpeed(Motor *motor)
 {
-    motor->speed = (Encounter_count(motor->encounter) / 780.0) * 3.1415 * 2.0 * (1000 / TIMER_PERIOD);
+    motor->speed = (Encoder_count(motor->encoder) / 780.0) * 3.1415 * 2.0 * (1000 / TIMER_PERIOD);
     return motor->speed;
 }
 

@@ -5,6 +5,7 @@ volatile bool is_run = false;
 int last_num[PATROL_LAST] = {0}, num_pt = 0;
 bool slow_mode = false;
 double now_speed = PATROL_BASIC_SPEED;
+double now_turn = PATROL_TURN_SPEED;
 
 bool double_check(int num, int thres)
 {
@@ -43,15 +44,17 @@ void Patrol_update(Patrol *patrol)
         return;
     }
     double output = PID_update(patrol->pid, error);
-    // if (!slow_mode && )
-    // {
-    //     slow_mode = true;
-    //     now_speed *= 0.7;
-    // }
+    if (!slow_mode && num >= 4 && ABS(error) >= 4)
+    {
+        slow_mode = true;
+        now_speed = 16;
+        now_turn = 2.8;
+        patrol->ir->right_first = true;
+    }
     double speed_l, speed_r;
     push_num(num);
-    speed_l = now_speed + PATROL_TURN_SPEED * k_speed(output);
-    speed_r = now_speed + PATROL_TURN_SPEED * k_speed(-output);
+    speed_l = now_speed + now_turn * k_speed(output);
+    speed_r = now_speed + now_turn * k_speed(-output);
     Motor_setSpeed(patrol->motor_l, speed_l);
     Motor_setSpeed(patrol->motor_r, speed_r);
 }
@@ -61,8 +64,8 @@ void Patrol_stop(Patrol *patrol)
     // Motor_setSpeed(patrol->motor_l, 0.5 * PATROL_BASIC_SPEED);
     // Motor_setSpeed(patrol->motor_r, 0.5 * PATROL_BASIC_SPEED);
     // delay(500);
-    Motor_setSpeed(patrol->motor_l, 0.8 * PATROL_BASIC_SPEED);
-    Motor_setSpeed(patrol->motor_r, -0.5 * PATROL_BASIC_SPEED);
+    Motor_setSpeed(patrol->motor_l, 0.8 * now_speed);
+    Motor_setSpeed(patrol->motor_r, -0.5 * now_speed);
     delay(PATROL_TURN_TIME);
     Motor_setSpeed(patrol->motor_l, 0);
     Motor_setSpeed(patrol->motor_r, 0);
