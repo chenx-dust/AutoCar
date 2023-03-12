@@ -3,7 +3,7 @@
 
 volatile bool is_run = false;
 int last_num[PATROL_LAST] = {0}, num_pt = 0;
-bool slow_mode = false;
+// bool slow_mode = false;
 double now_speed = PATROL_BASIC_SPEED;
 double now_turn = PATROL_TURN_SPEED;
 
@@ -44,17 +44,12 @@ void Patrol_update(Patrol *patrol)
         return;
     }
     double output = PID_update(patrol->pid, error);
-    if (!slow_mode && num >= 4 && ABS(error) >= 4)
-    {
-        slow_mode = true;
-        now_speed = 16;
-        now_turn = 2.8;
-        patrol->ir->right_first = true;
-    }
     double speed_l, speed_r;
     push_num(num);
     speed_l = now_speed + now_turn * k_speed(output);
     speed_r = now_speed + now_turn * k_speed(-output);
+    speed_l *= 1 - ABS(output) / PATROL_SPEED_DIV;
+    speed_r *= 1 - ABS(output) / PATROL_SPEED_DIV;
     Motor_setSpeed(patrol->motor_l, speed_l);
     Motor_setSpeed(patrol->motor_r, speed_r);
 }
