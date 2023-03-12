@@ -37,9 +37,11 @@ int8_t IR_read(IR_sensor *ir, int *ret_num)
     if (num == 0)
     {
         if (ir->last_error > 0)
-            return ir->last_error + 1;
+            // return ir->last_error + 1;
+            return 5;
         else if (ir->last_error < 0)
-            return ir->last_error - 1;
+            // return ir->last_error - 1;
+            return -5;
         else
             return 0;
     }

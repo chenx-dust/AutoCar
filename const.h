@@ -15,22 +15,22 @@
 #define MOTOR_L_INA 34
 #define MOTOR_L_INB 32
 #define MOTOR_R_INA 35
-#define MOTOR_R_INB 37
+#define MOTOR_R_INB 33
 
 #define MOTOR_PID_KP 20.0
 #define MOTOR_PID_KI 15.0
 #define MOTOR_PID_KD 0.05
 
 #define PATROL_PID_KP 1.0
-#define PATROL_PID_KI 0.0
+#define PATROL_PID_KI 0.1
 #define PATROL_PID_KD 0.01
 #define PATROL_BASIC_SPEED 10
-#define PATROL_TURN_SPEED 2.0
+#define PATROL_TURN_SPEED 6.0
 #define PATROL_STOP_THRESHOLD 8
 #define PATROL_LAST 3
 #define PATROL_TURN_TIME 400
-#define PATROL_POS 1.0
-#define PATROL_NEG 1.5
+#define PATROL_POS 0.4
+#define PATROL_NEG 2.0
 #define PATROL_SPEED_DIV 10.0
 
 #define IR_SENSOR_TOTAL 9
@@ -53,5 +53,11 @@
 #define SERVO_C_BASE 50
 #define SERVO_A_UP 20
 #define SERVO_C_PICK 40
+
+#define SONAR_TRIG_PIN 40
+#define SONAR_ECHO_PIN 41
+#define SONAR_HISTORY 5
+#define SONAR_THRES 12
+#define SONAR_INF 100000.0
 
 #endif

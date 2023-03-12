@@ -17,5 +17,7 @@ typedef struct
 void Patrol_update(Patrol *patrol);
 void Patrol_stop(Patrol *Patrol);
 void Patrol_start(Patrol *Patrol);
+void Patrol_avoid(Patrol *patrol);
+void Patrol_turn(Patrol *patrol, bool is_right);
 
 #endif
