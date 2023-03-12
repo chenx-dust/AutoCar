@@ -99,6 +99,9 @@ void Patrol_stop(Patrol *patrol)
     Motor_setSpeed(patrol->motor_l, 0.8 * now_speed);
     Motor_setSpeed(patrol->motor_r, -0.5 * now_speed);
     delay(PATROL_TURN_TIME);
+    Motor_setSpeed(patrol->motor_l, -0.5 * now_speed);
+    Motor_setSpeed(patrol->motor_r, -0.5 * now_speed);
+    delay(600);
     Motor_setSpeed(patrol->motor_l, 0);
     Motor_setSpeed(patrol->motor_r, 0);
 }
@@ -108,10 +111,10 @@ void Patrol_avoid(Patrol *patrol)
     is_run = false;
     Motor_setSpeed(patrol->motor_l, -0.8 * now_speed);
     Motor_setSpeed(patrol->motor_r, 0.8 * now_speed);
+    delay(320);
+    Motor_setSpeed(patrol->motor_l, 1.0 * now_speed);
+    Motor_setSpeed(patrol->motor_r, 0.6 * now_speed);
     delay(600);
-    Motor_setSpeed(patrol->motor_l, 1.2 * now_speed);
-    Motor_setSpeed(patrol->motor_r, 0.5 * now_speed);
-    delay(1200);
 
     int num = 0;
     while (num == 0)

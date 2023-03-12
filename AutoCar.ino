@@ -78,8 +78,8 @@ void loop()
 {
     if (is_stop)
         onStop();
-    // if (!stopped)
-        // Sonar_detect(&sonar);
+    if (!stopped)
+        Sonar_detect(&sonar);
     if (is_obstacle)
         onObstacle();
 }
